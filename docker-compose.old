@@ -1,0 +1,22 @@
+version: '3'
+services:
+  php_fpm:
+    image: hwj637096/php72-fpm:latest
+    volumes:
+      - ./php72-fpm/conf:/etc/php
+      - ./php72-fpm/run:/run/php
+    command: php-fpm7.2 -c /etc/php/7.2/fpm/php-fpm.conf
+  nginx:
+    image: hwj637096/nginx:latest
+    ports:
+      - "8000:80"
+    volumes:
+      - ./nginx/conf:/etc/nginx/sites-available
+      - ./nginx/log:/var/log/nginx
+      - ./laravel_jenkins/public:/var/www/html
+      - ./php72-fpm/run:/run/php
+    links:
+      - php_fpm
+    depends_on:
+      - php_fpm
+    command: /etc/init.d/nginx start

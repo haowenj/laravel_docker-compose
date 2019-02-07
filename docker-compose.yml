@@ -1,0 +1,31 @@
+version: '3'
+
+services:
+    web:
+        image: hwj637096/nginx:latest
+        ports:
+            - "8000:80"
+        volumes:
+            - ./nginx/conf:/etc/nginx/sites-available
+            - ./nginx/log:/var/log/nginx
+            - ./laravel_jenkins:/var/www/html/laravel_jenkins
+            - "phpsocket:/var/run"
+        networks:
+            - code-network
+        command: /etc/init.d/nginx start
+    php:
+        image: hwj637096/php72-fpm:latest
+        volumes:
+            - ./laravel_jenkins:/var/www/html/laravel_jenkins
+            - ./php72-fpm/conf:/etc/php
+            - "phpsocket:/var/run"
+        networks:
+            - code-network
+        command: php-fpm7.2 -c /etc/php/7.2/fpm/php-fpm.conf
+
+networks:
+    code-network:
+        driver: bridge
+
+volumes:
+    phpsocket:

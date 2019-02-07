@@ -1,0 +1,12 @@
+/laravel_jenkins/node_modules
+/laravel_jenkins/public/hot
+/laravel_jenkins/public/storage
+/laravel_jenkins/storage/*.key
+/laravel_jenkins/vendor
+/laravel_jenkins/.idea
+/laravel_jenkins/.vagrant
+Homestead.json
+Homestead.yaml
+npm-debug.log
+yarn-error.log
+/laravel_jenkins/.env
